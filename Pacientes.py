@@ -1,4 +1,5 @@
 class Pacientes:
+    
     def __init__(self, nombre, DNI, sexo, nacimiento, Tsangre, telefono, centro_de_salud):
         self.nombre = nombre
         self.DNI = DNI #este se obtiene con un random 
@@ -7,4 +8,6 @@ class Pacientes:
         self.Tsangre = Tsangre
         self.telefono = telefono
         self.centro_de_salud = centro_de_salud
-        
+
+    def saludar(self, nombre):
+        print(f"Buenas, soy {nombre}")
