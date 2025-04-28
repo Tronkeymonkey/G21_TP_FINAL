@@ -8,6 +8,3 @@ class Pacientes:
         self.telefono = telefono
         self.centro_de_salud = centro_de_salud
         
-    #comentando para ver si se pasan los cambios :)
-    def lista(self):
-        
