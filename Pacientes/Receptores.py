@@ -11,3 +11,4 @@ class Receptores(Pacientes):
         self.patologia = patologia #que organo necesita
         self.estado = "Estable" #siempre va a estar estable, a menos que falle el trasplante 
         self.tipo = "Receptor"
+        self.organos_a_disposicion=[] # lista de organos que el receptor puede recibir, en caso de que haya compatibilidad con el donante

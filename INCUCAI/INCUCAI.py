@@ -3,20 +3,40 @@ from Pacientes.Donantes import Donantes
 class INCUCAI:
 
     def __init__(self):
-        self.lista_receptores = [] 
+        self.lista_receptores = [] #listas para almacenar los receptores y donantes (vacias) 
         self.lista_donantes = [] 
     
     def recibir_paciente(self, *pacientes): #por cada paciente recibido, se verifica si es receptor o donante y se agrega a la lista correspondiente
         for paciente in pacientes:
             if isinstance(paciente, Receptores): #verificar si es receptor o donante en base a la clase
                 self.lista_receptores.append(paciente)
+                self.buscar_compatibilidad_receptor_a_donante(paciente, self.lista_donantes) #busco compatibilidad entre el receptor y los donantes
+
             elif isinstance(paciente, Donantes):
                 self.lista_donantes.append(paciente)
+                self.buscar_compatibilidad_donante_a_receptor(paciente, self.lista_receptores) #busco compatibilidad entre el donante y los receptores
             else:
                 raise ValueError("El paciente debe ser un receptor o un donante.")
 
     def buscar_compatibilidad_receptor_a_donante(self, receptor: Receptores, donante: Donantes):  # Verificar si el órgano que el receptor necesita está en la lista de órganos que el donante puede donar    
         for receptor in self.lista_receptores:
-            for donante in self.lista_donantes:
-                if receptor.organo_a_recibir.lower() == donante.organos_a_donar.lower() and receptor.Tsangre == donante.Tsangre:
-                    return True
+            if receptor.estado.lower() == "inestable": #primero verifico si el receptor esta inestable para darle prioridad al trasplante
+                for donante in self.lista_donantes:
+                    if receptor.organo_a_recibir.lower() == donante.organos_a_donar.lower() and receptor.Tsangre == donante.Tsangre:
+                        receptor.organos_a_disposicion.append(donante.organos_a_donar)  #coloco el organo del donante en la lista de organos a disposicion del receptor
+                        donante.organos_a_donar.remove(donante.organos_a_donar) #el donante no puede donar el organo que ya dono
+
+            elif receptor.estado.lower() == "estable": #misma logica que el anterior, pero para los receptores estables
+                for donante in self.lista_donantes:
+                    if receptor.organo_a_recibir.lower() == donante.organos_a_donar.lower() and receptor.Tsangre == donante.Tsangre:
+                        receptor.organos_a_disposicion.append(donante.organos_a_donar)  
+                        donante.organos_a_donar.remove(donante.organos_a_donar) 
+
+    def buscar_compatibilidad_donante_a_receptor(self, donante: Donantes, receptor: Receptores): #verifico si el donante es compatible con el receptor
+        for donante in self.lista_donantes: #logica exactamente igual a la del receptor, pero sin incluir la prioridad del estado
+            for receptor in self.lista_receptores:
+                if donante.organos_a_donar.lower() == receptor.organo_a_recibir.lower() and donante.Tsangre == receptor.Tsangre:
+                    receptor.organos_a_disposicion.append(donante.organos_a_donar)                   
+                    donante.organos_a_donar.remove(donante.organos_a_donar)
+                    if donante.organos_a_donar == []: 
+                        self.lista_donantes.remove(donante)
