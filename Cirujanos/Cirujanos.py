@@ -1,5 +1,5 @@
 import random as rnd
-from Receptores import Receptores # Importar la clase Receptores desde el archivo Receptores.py
+from Pacientes.Receptores import Receptores # Importar la clase Receptores desde el archivo Receptores.py
 
 class Cirujanos:
    
@@ -16,4 +16,4 @@ class Cirujanos:
                              "gastroenterologo":["higado","riñon", "intestinos"]
                           } 
 
-    
+
