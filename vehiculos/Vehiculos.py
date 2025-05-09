@@ -17,4 +17,4 @@ class Vehiculos():
         return tiempo
     
     def __str__(self): #metodo magico que ayuda al orden del codigo si quiero imprimirlo: print(vehiculo1) tengo que crear un vehiculo
-        return f"Vehículo {self.identificador} - Velocidad: {self.velocidad_viajes} km/h"
+        return f"Vehículo {self.identificador} - Velocidad: {self.velocidad_viajes} km/h" 

@@ -1,5 +1,6 @@
 from Pacientes.Receptores import Receptores
 from Pacientes.Donantes import Donantes
+from Cirujanos.Cirujanos import Cirujanos
 class INCUCAI:
 
     def __init__(self):
@@ -15,6 +16,7 @@ class INCUCAI:
             elif isinstance(paciente, Donantes):
                 self.lista_donantes.append(paciente)
                 self.buscar_compatibilidad_donante_a_receptor(paciente, self.lista_receptores) #busco compatibilidad entre el donante y los receptores
+            
             else:
                 raise ValueError("El paciente debe ser un receptor o un donante.")
 
@@ -40,3 +42,11 @@ class INCUCAI:
                     donante.organos_a_donar.remove(donante.organos_a_donar)
                     if donante.organos_a_donar == []: 
                         self.lista_donantes.remove(donante)
+
+    def resultados_trasplante(self, receptor: Receptores):
+        if Cirujanos.realizar_cirujia:
+            self.lista_receptores.remove(receptor)
+            return f"La cirujia fue todo un exito y el paciente {receptor.nombre} pasa a estado {receptor.estado}. Se ha quitado de la lista de espera."
+        else:
+            receptor.estado == "Inestable"
+            return f"La cirujia ha fallado y el paciente {receptor.nombre} pasa a estado {receptor.estado}. Se le ha puesto la maxima prioridad en la lista de espera."
