@@ -1,6 +1,10 @@
 from vehiculos.Helicoptero import *
 from vehiculos.Avion import *
 from vehiculos.Auto import *
+from Pacientes.Receptores import Receptores
+from Cirujanos.Cirujanos import Cirujanos
+from Pacientes.Donantes import Donantes
+
 class CentroSalud:
     
     def __init__(self, nombre, direccion, telefono, partido, provincia):
@@ -9,24 +13,32 @@ class CentroSalud:
         self.telefono = telefono
         self.partido = partido
         self.provincia = provincia
-        self.lista_cirujanos = [] #lista vacia
-        self.lista_vehiculos = [] #lista vacia
+        self.lista_cirujanos: list[Cirujanos] = [] #lista vacia
+        self.lista_vehiculos: list[Vehiculos] = [] #lista 
+        self.lista_donantes: list[Donantes] = [] #lista de donantes que depende del nombre del centro
         
-        '''  Los centros de salud asignan un vehiculo para el
-transporte del órgano. Esta selección de vehículos se realiza en base a la distancia. Si se encuentra en la
-misma provincia y partido, se debe hacer uso del vehiculo disponible de mayor velocidad pero que no se use
-para distancias mayores. Si se encuentra en la misma provincia, pero en un partido distinto, se utiliza el
-helicóptero. Si discierne la provincia se utiliza el avión.'''
-    def asignar_vehiculo(self, partido, provincia, distancia):
-        if partido != self.partido:
+    def asignar_vehiculo(self, receptores : Receptores , distancia):
+        if receptores.partido != self.partido:
             for i in self.lista_vehiculos:
                 if isinstance(i, Helicoptero): # si pertenece a la clase helicoptero
                     return i
-        elif provincia != self.provincia:
+        elif receptores.provincia != self.provincia:
             for i in self.lista_vehiculos:
                 if isinstance(i,Avion): #si pertenece  a la clase avion
                     return i
-        else: # si no necesito ni avion ni el helicoptero, uso el avion. 
-            # busco el auto mas rapido 
-            auto = [a for a in self.lista_vehiculos if isinstance(a, Auto) and distancia <= 100] # ordeno mi lista en base a los autos 
-            # tengo que ordenar los autos en base al tiempo que llevan en recorrer cada uno. 
+        elif receptores.partido == self.partido and receptores.provincia == self.provincia: # si no necesito ni avion ni el helicoptero, uso el avion. 
+            if isinstance(self.lista_vehiculos, Auto): 
+                    # Encontrar el auto con mayor velocidad usando max y una función lambda
+                    maximo = max(self.lista_vehiculos, key=lambda Auto: self.lista_vehiculos.velocidad_viajes)
+                    return maximo
+            
+
+
+'''
+if autos:  # Verificar que haya al menos un auto en la lista
+        # Encontrar el auto con mayor velocidad usando max y una función lambda
+        maximo = max(autos, key=lambda auto: auto.velocidad_viajes)
+        return maximo
+    else:
+        print("No hay autos disponibles en la lista de vehículos.")
+'''

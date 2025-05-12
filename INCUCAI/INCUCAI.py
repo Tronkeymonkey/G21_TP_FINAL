@@ -4,8 +4,8 @@ from Cirujanos.Cirujanos import Cirujanos
 class INCUCAI:
 
     def __init__(self):
-        self.lista_receptores = [] #listas para almacenar los receptores y donantes (vacias) 
-        self.lista_donantes = [] 
+        self.lista_receptores: list[Receptores] = [] #listas para almacenar los receptores y donantes (vacias) 
+        self.lista_donantes: list[Donantes] = [] 
     
     def recibir_paciente(self, *pacientes): #por cada paciente recibido, se verifica si es receptor o donante y se agrega a la lista correspondiente
         for paciente in pacientes:
