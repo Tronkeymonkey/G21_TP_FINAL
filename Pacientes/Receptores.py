@@ -1,4 +1,4 @@
-from Pacientes.Pacientes import Pacientes
+from pacientes.Pacientes import Pacientes
 
 class Receptores(Pacientes):
 

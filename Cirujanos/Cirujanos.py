@@ -1,6 +1,6 @@
 import random as rnd
-from Pacientes.Receptores import Receptores # Importar la clase Receptores desde el archivo Receptores.py
-from Organos.Organos import Organos # Importar la clase Organos desde el archivo Organos.py
+from pacientes.Receptores import Receptores # Importar la clase Receptores desde el archivo Receptores.py
+from organos.Organos import Organos # Importar la clase Organos desde el archivo Organos.py
 from datetime import *
 
 class Cirujanos:

@@ -1,10 +1,10 @@
-from Pacientes.Pacientes import Pacientes
-
+from pacientes.Pacientes import Pacientes
+from datetime import datetime
 class Donantes(Pacientes):
 
     def __init__(self, nombre, DNI, sexo, nacimiento, Tsangre, telefono, centro_de_salud, fhfallecimiento, fhablacion):
 
         super().__init__(nombre, DNI, sexo, nacimiento, Tsangre, telefono, centro_de_salud)
         self.fhfallecimiento = fhfallecimiento
-        self.fhablacion = fhablacion
+        self.fhablacion = fhablacion # lo dejo sin valor inicial (none) hasta que se haga la ablacion 
         self.organos_a_donar = [] #lista (vacia) de los organos a donar

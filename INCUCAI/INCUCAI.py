@@ -1,6 +1,6 @@
-from Pacientes.Receptores import Receptores
-from Pacientes.Donantes import Donantes
-from Cirujanos.Cirujanos import Cirujanos
+from pacientes.Receptores import Receptores
+from pacientes.Donantes import Donantes
+from cirujanos.Cirujanos import Cirujanos
 class INCUCAI:
 
     def __init__(self):

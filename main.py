@@ -1,8 +1,8 @@
-from Pacientes.Pacientes import *
-from Pacientes.Receptores import *
+from pacientes.Pacientes import *
+from pacientes.Receptores import *
 #from Pacientes.Donantes import *
-from Organos.Organos import *
-from INCUCAI.INCUCAI import *
+from organos.Organos import *
+from incucai.INCUCAI import *
 #from vehiculos.Vehiculos import *
 
 paciente1 = Receptores("Juan", 12345678, "M", "1990-01-01", "O+", 123456789, "Hospital Central", "Riñon", "2023-10-01", 1, "Insuficiencia renal", "3 de Febrero", "Buenos Aires")
