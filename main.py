@@ -1,7 +1,7 @@
 from pacientes.Pacientes import *
 from pacientes.Receptores import *
 #from Pacientes.Donantes import *
-from organos.Organos import *
+from organos.organos import *
 from incucai.INCUCAI import *
 #from vehiculos.Vehiculos import *
 
