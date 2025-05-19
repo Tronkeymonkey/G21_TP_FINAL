@@ -1,4 +1,4 @@
-class organos:
+class Organos:
 
     def __init__(self, tipo_de_organo):
         self.tipo_de_organo = tipo_de_organo
