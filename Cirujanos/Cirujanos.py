@@ -1,7 +1,9 @@
 import random as rnd
-from pacientes.Receptores import Receptores # Importar la clase Receptores desde el archivo Receptores.py
-from organos.Organos import Organos # Importar la clase Organos desde el archivo Organos.py
-from datetime import *
+from pacientes.Receptores import Receptores # Importar la clase Receptores desde el archivo Receptores.py de la carpeta pacientes
+from organos.Organos import Organos # Importar la clase Organos desde el archivo Organos.py de la carpeta organos
+from centro_salud.Centro_Salud import CentroSalud
+from datetime import datetime
+from datetime import timedelta
 
 class Cirujanos:
    
@@ -16,13 +18,16 @@ class Cirujanos:
                              "plastico":["piel","corneas"],
                              "traumatologo":["huesos"],
                              "gastroenterologo":["higado","riñon", "intestinos"]
-                          } 
+                               } 
         
     def realizar_cirujia(self, organos:Organos = None):
-        if organos.fecha_ablacion > 20: # esto debe complejizarse agregando la funcion date
+        
+        tiempo_tardado = timedelta(hours = CentroSalud.asignar_vehiculo) 
+        
+        if tiempo_tardado.datetime.total_seconds() > 20*3600: # esto debe complejizarse agregando la funcion date
             print("Cirujia interrupida: TIEMPO DE ABLACION MAYOR A 20 HS") 
         
-        elif organos.fecha_ablacion <= 20:
+        elif horas.total_seconds() <= 20*3600:
             
             if self.organo in self.tabla_sinergias[self.especialidad]: #si el organo que se quiere trasplantar es compatible con la especialidad del cirujano
                 exito = rnd.randint(0, 10) #simulamos el exito de la cirujia con un random
