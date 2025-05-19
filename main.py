@@ -50,4 +50,6 @@ donantes = [
     Donantes("Elena Mariscotti", 22113344, "F", "1970-04-10", "A+", "112305739", centros_salud[1].nombre),
     Donantes("Tomas Hourquescos", 35112244, "M", "1995-12-01", "O+", "341823045",centros_salud[2].nombre),
     Donantes("Lucía Drappo", 44112233, "F", "1982-08-08", "B-", "1134728305", centros_salud[3].nombre), 
-    Donantes("Franca Nanni", 47034652, "F", "2006-03-24", "0+", "3412348764", centros_salud[0].nombre)]
+    Donantes("Franca Nanni", 47034652, "F", "2006-03-24", "0+", "3412348764", centros_salud[0].nombre),
+    Donantes()]
+

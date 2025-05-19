@@ -7,7 +7,7 @@ class INCUCAI:
         self.lista_receptores: list[Receptores] = [] #listas para almacenar los receptores y donantes (vacias) 
         self.lista_donantes: list[Donantes] = [] 
     
-    def recibir_paciente(self, *pacientes): #por cada paciente recibido, se verifica si es receptor o donante y se agrega a la lista correspondiente
+    def recibir_paciente(self, pacientes): #por cada paciente recibido, se verifica si es receptor o donante y se agrega a la lista correspondiente
         for paciente in pacientes:
             if isinstance(paciente, Receptores): #verificar si es receptor o donante en base a la clase
                 self.lista_receptores.append(paciente)
