@@ -27,11 +27,12 @@ class CentroSalud:
                 if isinstance(i,Avion): #si pertenece  a la clase avion
                     return i
         elif receptores.partido == self.partido and receptores.provincia == self.provincia: # si no necesito ni avion ni el helicoptero, uso el avion. 
-            if isinstance(self.lista_vehiculos, Auto): 
-                    # Encontrar el auto con mayor velocidad usando max y una función lambda
-                    maximo = max(self.lista_vehiculos, key=lambda Auto: self.lista_vehiculos.velocidad_viajes)
-                    return maximo
-                
+                autos = [i for i in self.lista_vehiculos if isinstance(i, Auto)] #busco en mi lista vehiculos cuales son autos
+                if autos:  # Encontrar el auto con mayor velocidad usando max y una función lambda
+                    max_veloz_auto = max(autos, key=lambda a: a.velocidad_viajes)
+                    return max_veloz_auto
+        raise Exception("No hay vehículo disponible para este traslado")       
+                    
     
 '''
 if autos:  # Verificar que haya al menos un auto en la lista
