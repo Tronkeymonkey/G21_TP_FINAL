@@ -9,7 +9,8 @@ class Helicoptero(Vehiculos):
         super().__init__(velocidad_viajes, identificador) 
         
     @override
-    def despachar(self, distancia, nivel_trafico=3):
+    def despachar(self, distancia, nivel_trafico=None):
+        self.dispoinibilidad == "Disponible"
         return self._despacho_default(distancia, nivel_trafico) #metodo protegido default para helicpotero  
         
     

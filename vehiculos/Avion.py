@@ -9,7 +9,8 @@ class Avion(Vehiculos):
         super().__init__(velocidad_viajes, identificador) 
      
     @override  #sobreescribo el metodo de mi clase madre
-    def despachar(self, distancia, nivel_trafico=3):
+    def despachar(self, distancia, nivel_trafico=None):
+        self.dispoinibilidad == "Disponible"
         return self._despacho_default(distancia, nivel_trafico) 
        
     

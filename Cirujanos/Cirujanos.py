@@ -7,11 +7,9 @@ from datetime import timedelta
 
 class Cirujanos:
    
-    def __init__(self, especialidad):
+    def __init__(self, especialidad, disponibilidad=None):
         self.especialidad = especialidad.lower() 
-
-    def sinergias(self, receptores:Receptores = None):
-        self.organo = receptores.organo_a_recibir.lower()
+        self.disponibilidad = "Disponible"
 
         self.tabla_sinergias = {  "cardiovascular":["corazon"], #esto es un llamado diccionario, donde se definen las compatibilidades entre los organos y las especialidades
                              "pulmonar":["pulmon"],
@@ -24,21 +22,25 @@ class Cirujanos:
         
         tiempo_tardado = timedelta(hours = CentroSalud.asignar_vehiculo) 
         
-        if tiempo_tardado.datetime.total_seconds() > 20*3600: # esto debe complejizarse agregando la funcion date
+        if tiempo_tardado.datetime.total_seconds() > 20*3600: 
             print("Cirujia interrupida: TIEMPO DE ABLACION MAYOR A 20 HS") 
         
-        elif horas.total_seconds() <= 20*3600:
+        elif tiempo_tardado.datetime.total_seconds() <= 20*3600: 
             
-            if self.organo in self.tabla_sinergias[self.especialidad]: #si el organo que se quiere trasplantar es compatible con la especialidad del cirujano
+            if organos in self.tabla_sinergias[self.especialidad]: #si el organo que se quiere trasplantar es compatible con la especialidad del cirujano
                 exito = rnd.randint(0, 10) #simulamos el exito de la cirujia con un random
                 if exito >= 3:
+                    self.disponibilidad == "Disponible"
                     return True #salio bien
                 else:
+                    self.disponibilidad == "Disponible"
                     return False #salio mal
 
-            elif self.organo not in self.tabla_sinergias[self.especialidad]:
+            elif organos not in self.tabla_sinergias[self.especialidad]:
                 exito = rnd.randint(0, 10) 
                 if exito >= 5:
+                    self.disponibilidad == "Disponible"
                     return True
                 else:
+                    self.disponibilidad == "Disponible"
                     return False

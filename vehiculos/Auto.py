@@ -12,7 +12,7 @@ class Auto(Vehiculos):
            
         
     @override   
-    def despachar(self, distancia, nivel_trafico): 
+    def despachar(self, distancia): 
         # VER COMO HACE EL PRFE CON DIVISION X CERO!!
             nivel_trafico = random.randint(0,3)
             tiempo =  (distancia / self.velocidad_viajes) + nivel_trafico 
@@ -21,4 +21,5 @@ class Auto(Vehiculos):
                 'nivel_trafico': nivel_trafico,
                 'tiempo': tiempo
                 })
+            self.dispoinibilidad == "Disponible"
             return tiempo  
