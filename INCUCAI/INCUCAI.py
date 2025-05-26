@@ -53,9 +53,9 @@ class INCUCAI:
                         self.lista_donantes.remove(donante) #si el donante se queda sin organos, se va de la lista de donantes
 
     def resultados_trasplante(self, receptor: Receptores):
-        if Centro_Salud.asignar_cirujano_y_operar():
+        if Centro_Salud.asignar_cirujano_y_operar(): #chequea lo que retorna, al estar escrito asi, Python entiende que es True, osea, operacion exitosa
             self.lista_receptores.remove(receptor)
             return f"La cirujia fue todo un exito y el paciente {receptor.nombre} pasa a estado {receptor.estado}. Se ha quitado de la lista de espera."
-        else:
+        else: #caso inverso al de if (logicamente)
             receptor.estado == "Inestable"
             return f"La cirujia ha fallado y el paciente {receptor.nombre} pasa a estado {receptor.estado}. Se le ha puesto la maxima prioridad en la lista de espera."
