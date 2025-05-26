@@ -20,7 +20,9 @@ class CentroSalud:
         self.lista_vehiculos: list[Auto | Helicoptero | Avion] = [] #lista de los vehiculos
         self.lista_pacientes: list[Receptores | Donantes] = [] #lista de pacientes
         
-    def asignar_y_mandar_vehiculo(self, receptores : Receptores , distancia): #Linea cambiada 23/5/2025 15.17
+#La logica de las funciones es teniendo en cuenta que el centro de salud es del donante
+
+    def asignar_y_mandar_vehiculo(self, receptores : Receptores , distancia): 
         
         geolocator = Nominatim(user_agent= "mi_app") #identificar la aplicacion
 
