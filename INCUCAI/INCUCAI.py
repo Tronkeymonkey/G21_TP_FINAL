@@ -1,16 +1,17 @@
 from pacientes.Receptores import Receptores
 from pacientes.Donantes import Donantes
 from cirujanos.Cirujanos import Cirujanos
-from centro_salud import Centro_Salud
+from centro_salud.Centro_Salud import CentroSalud
 from organos.Organos import Organos
 from datetime import datetime
 class INCUCAI:
 
-    def __init__(self):
-        self.lista_receptores: list[Receptores] = [] #listas para almacenar los receptores y donantes (vacias) 
-        self.lista_donantes: list[Donantes] = [] 
+    def __init__(self, receptores = [], donantes = [], centros = []):
+        self.lista_receptores: list[Receptores] = receptores #listas para almacenar los receptores y donantes (vacias) 
+        self.lista_donantes: list[Donantes] = donantes
+        self.centros_salud: list[CentroSalud] = centros
     
-    def recibir_paciente(self, Centro_Salud:Centro_Salud): #por cada lista de centro de salud, se verifica si los pacientes son receptor o donante y se agrega a la lista correspondiente
+    def recibir_paciente(self, Centro_Salud:CentroSalud): #por cada lista de centro de salud, se verifica si los pacientes son receptor o donante y se agrega a la lista correspondiente
         for paciente in Centro_Salud.lista_pacientes:
             if isinstance(paciente, Receptores): #verificar si es receptor o donante en base a la clase
                 self.lista_receptores.append(paciente)
@@ -53,7 +54,7 @@ class INCUCAI:
                         self.lista_donantes.remove(donante) #si el donante se queda sin organos, se va de la lista de donantes
 
     def resultados_trasplante(self, cirujanos: Cirujanos, receptor: Receptores): #recibe, como dice el nombre, el resultado del trasplante de ese cirujano con ese paciente
-        if Centro_Salud.asignar_cirujano_y_operar(): #chequea lo que retorna, al estar escrito asi, Python entiende que es True, osea, operacion exitosa
+        if CentroSalud.asignar_cirujano_y_operar(): #chequea lo que retorna, al estar escrito asi, Python entiende que es True, osea, operacion exitosa
             self.lista_receptores.remove(receptor)
             return f"La cirujia fue todo un exito y el paciente {receptor.nombre} pasa a estado {receptor.estado}. Se ha quitado de la lista de espera."
         else: #caso inverso al de if (logicamente)

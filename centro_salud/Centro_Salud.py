@@ -5,6 +5,7 @@ from pacientes.Receptores import Receptores
 from cirujanos.Cirujanos import Cirujanos
 from pacientes.Donantes import Donantes
 from pacientes.Pacientes import Pacientes
+from main import main
 from geopy.geocoders import Nominatim
 from geopy.distance import geodesic
 
@@ -18,7 +19,8 @@ class CentroSalud:
         self.provincia = provincia
         self.lista_cirujanos: list[Cirujanos] = [] #lista de cirujanos
         self.lista_vehiculos: list[Auto | Helicoptero | Avion] = [] #lista de los vehiculos
-        self.lista_pacientes: list[Receptores | Donantes] = [] #lista de pacientes
+        self.lista_pacientes: list[Receptores | Donantes] = []
+        
         
 #La logica de las funciones es teniendo en cuenta que el centro de salud es del donante
 
