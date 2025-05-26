@@ -18,9 +18,9 @@ class Cirujanos:
                              "gastroenterologo":["higado","riñon", "intestinos"]
                                } 
         
-    def realizar_cirujia(self, organos:Organos = None):
+    def realizar_cirujia(self, tiempo, organos:Organos = None):
         
-        tiempo_tardado = timedelta(hours = CentroSalud.asignar_vehiculo) 
+        tiempo_tardado = tiempo
         
         if tiempo_tardado.datetime.total_seconds() > 20*3600: 
             print("Cirujia interrupida: TIEMPO DE ABLACION MAYOR A 20 HS") 

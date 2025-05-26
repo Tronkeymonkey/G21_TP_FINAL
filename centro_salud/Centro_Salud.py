@@ -24,7 +24,7 @@ class CentroSalud:
         
 #La logica de las funciones es teniendo en cuenta que el centro de salud es del donante
 
-    def asignar_y_mandar_vehiculo(self, receptores : Receptores , distancia): 
+    def asignar_y_mandar_vehiculo(self, receptores : Receptores): 
         
         geolocator = Nominatim(user_agent= "mi_app") #identificar la aplicacion
 
@@ -37,7 +37,7 @@ class CentroSalud:
                 if isinstance(i, Helicoptero): # si pertenece a la clase helicoptero
                     if i.dispoinibilidad == "Disponible":
                         i.dispoinibilidad == "Ocupado"
-                        i.despachar(distancia)
+                        return i.despachar(distancia)
                 
         elif receptores.provincia != self.provincia: #condicion para llamar al avion
             loc1 = geolocator.geocode(f"{self.provincia}, Argentina") #toma las provincias de ambos
@@ -48,7 +48,7 @@ class CentroSalud:
                 if isinstance(i,Avion): #si pertenece  a la clase avion
                     if i.dispoinibilidad == "Disponible":
                         i.dispoinibilidad == "Ocupado"
-                        i.despachar(distancia)
+                        return i.despachar(distancia)
 
         elif receptores.partido == self.partido and receptores.provincia == self.provincia: #condicion para llamar al terrestre (y mas veloz)
             loc1 = geolocator.geocode(f"{self.partido}, {self.provincia}, Argentina") 
@@ -62,11 +62,11 @@ class CentroSalud:
                         if self.lista_vehiculos[i].velocidad_viajes > self.lista_vehiculos[i+1].velocidad_viajes:
                             max = i
                     max.dispoinibilidad == "Ocupado"
-                    max.despachar(distancia)
+                    return max.despachar(distancia)
                 
-    def asignar_cirujano_y_operar(self, cirujanos:Cirujanos, receptor: Receptores):
+    def asignar_cirujano_y_operar(self, receptor: Receptores, tiempo):
         for cirujanos in self.lista_cirujanos:
             if cirujanos.disponibilidad == "Disponible":
                 cirujanos.disponibilidad == "Ocupado"
-                cirujanos.realizar_cirujia(receptor.organos_a_disposicion)
+                cirujanos.realizar_cirujia(tiempo, receptor.organos_a_disposicion)
             

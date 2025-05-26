@@ -1,6 +1,6 @@
 from vehiculos.Vehiculos import * 
 from typing import override
-import random
+import random as rnd
 
 
 
@@ -14,7 +14,7 @@ class Auto(Vehiculos):
     @override   
     def despachar(self, distancia): 
         # VER COMO HACE EL PRFE CON DIVISION X CERO!!
-            nivel_trafico = random.randint(0,3)
+            nivel_trafico = rnd.randint(0,3)
             tiempo =  (distancia / self.velocidad_viajes) + nivel_trafico 
             self.registro_viajes.append({
                 'distancia': distancia,
