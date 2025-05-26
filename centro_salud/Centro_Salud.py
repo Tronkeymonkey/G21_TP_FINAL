@@ -24,7 +24,7 @@ class CentroSalud:
         
         geolocator = Nominatim(user_agent= "mi_app") #identificar la aplicacion
 
-        if receptores.partido != self.partido:
+        if receptores.partido != self.partido: #condicion para llamar al helicoptero
             loc1 = geolocator.geocode(f"{self.partido}, Argentina") #toma el partido del centro
             loc2 = geolocator.geocode(f"{receptores.partido}, Argentina") #toma el partido del receptor
             if loc1 and loc2:
@@ -35,7 +35,7 @@ class CentroSalud:
                         i.dispoinibilidad == "Ocupado"
                         i.despachar(distancia)
                 
-        elif receptores.provincia != self.provincia:
+        elif receptores.provincia != self.provincia: #condicion para llamar al avion
             loc1 = geolocator.geocode(f"{self.provincia}, Argentina") #toma las provincias de ambos
             loc2 = geolocator.geocode(f"{receptores.provincia}, Argentina")
             if loc1 and loc2:
@@ -46,8 +46,8 @@ class CentroSalud:
                         i.dispoinibilidad == "Ocupado"
                         i.despachar(distancia)
 
-        elif receptores.partido == self.partido and receptores.provincia == self.provincia: # si no necesito ni avion ni el helicoptero, uso el avion. 
-            loc1 = geolocator.geocode(f"{self.partido}, {self.provincia}, Argentina")
+        elif receptores.partido == self.partido and receptores.provincia == self.provincia: #condicion para llamar al terrestre (y mas veloz)
+            loc1 = geolocator.geocode(f"{self.partido}, {self.provincia}, Argentina") 
             loc2 = geolocator.geocode(f"{receptores.partido}, {receptores.provincia}, Argentina")
             if loc1 and loc2:
                 distancia = geodesic((loc1.latitude, loc1.longitude), (loc2.latitude, loc2.longitude)).kilometers
