@@ -3,7 +3,7 @@ from datetime import datetime
 from organos.Organos import Organos
 class Donantes(Pacientes):
 
-    def __init__(self, nombre, DNI, sexo, nacimiento, Tsangre, telefono, centro_de_salud, fhfallecimiento, organos_a_donar, fhablacion = None):
+    def __init__(self, nombre, DNI, sexo, nacimiento, Tsangre, telefono, centro_de_salud, fhfallecimiento, organos_a_donar = [], fhablacion = None):
 
         super().__init__(nombre, DNI, sexo, nacimiento, Tsangre, telefono, centro_de_salud)
         self.fhfallecimiento = fhfallecimiento

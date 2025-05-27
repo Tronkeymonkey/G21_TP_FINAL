@@ -5,13 +5,12 @@ from pacientes.Receptores import Receptores
 from cirujanos.Cirujanos import Cirujanos
 from pacientes.Donantes import Donantes
 from pacientes.Pacientes import Pacientes
-from main import main
 from geopy.geocoders import Nominatim
 from geopy.distance import geodesic
 
 class CentroSalud:
     
-    def __init__(self, nombre, direccion, telefono, partido, provincia, lista_cirujanos, lista_vehiculos, lista_pacientes):
+    def __init__(self, nombre, direccion, telefono, partido, provincia, lista_cirujanos = [], lista_vehiculos= [], lista_pacientes= []):
         self.nombre = nombre
         self.direccion = direccion
         self.telefono = telefono

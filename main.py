@@ -1,11 +1,10 @@
-from pacientes.Pacientes import *
-from pacientes.Receptores import *
+from pacientes.Receptores import Receptores
 from organos.Organos import Organos #consultarselo a Sol
-from incucai.INCUCAI import *
-from vehiculos.Auto import *
-from vehiculos.Avion import *
-from vehiculos.Helicoptero import * 
-from centro_salud.Centro_Salud import *
+from incucai.INCUCAI import INCUCAI
+from vehiculos.Auto import Auto
+from vehiculos.Avion import Avion
+from vehiculos.Helicoptero import Helicoptero
+from centro_salud.Centro_Salud import CentroSalud
 import datetime
 from menu import *
 
@@ -24,6 +23,7 @@ centros_salud = [
     CentroSalud("Hospital Privado Rosario", " Pres. Roca 2440", "0341 489-3500", "Rosario", "Santa Fe"),
     CentroSalud("Hospital Zonal Dr. Ramón Carrillo", "20 de Febrero 598 ", "0294 452-5000", "Bariloche", "Rio Negro"),
     CentroSalud("Sanatorio Parque", "Blvd. Oroño 860", " 0341 420-0222", "Rosario", "Santa Fe")
+
 ]
 
 # Asignar vehículos a los centros de salud
@@ -54,6 +54,6 @@ donantes = [
     Donantes("Franca Nanni", 47034652, "F", "2006-03-24", "0+", "3412348764", centros_salud[0].nombre, "2025-05-15")
     ]
 
-incucai = INCUCAI(receptores, donantes, centros_salud)
+incucai = INCUCAI(centros_salud, donantes, receptores)
 
 menu(incucai)

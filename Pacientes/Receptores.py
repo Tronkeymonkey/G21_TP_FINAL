@@ -3,14 +3,13 @@ from organos.Organos import Organos
 
 class Receptores(Pacientes):
 
-    def __init__(self, nombre, DNI, sexo, nacimiento, Tsangre, telefono, centro_de_salud, organo_a_recibir, fecha_en_espera, prioridad, patologia, partido, provincia, estado = None):
+    def __init__(self, nombre, DNI, sexo, nacimiento, Tsangre, telefono, centro_de_salud, organo_a_recibir, fecha_en_espera, prioridad, partido, provincia, estado = None):
       
         super().__init__(nombre, DNI, sexo, nacimiento, Tsangre, telefono, centro_de_salud)
         organo_a_recibir = organo_a_recibir.lower()
         self.organo_a_recibir = organo_a_recibir
         self.fecha_en_espera = fecha_en_espera
         self.prioridad = prioridad #que esto dependa de la edad y patologia (obviamente si su estado es inestable es maxima prioridad)
-        self.patologia = patologia #que organo necesita
         partido = partido.lower()
         self.partido = partido
         provincia = provincia.lower()

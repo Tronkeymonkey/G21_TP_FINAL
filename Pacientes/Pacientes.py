@@ -7,4 +7,3 @@ class Pacientes:
         self.Tsangre = Tsangre
         self.telefono = telefono
         self.centro_de_salud = centro_de_salud
-        

@@ -6,9 +6,9 @@ from organos.Organos import Organos
 from datetime import datetime
 class INCUCAI:
 
-    def __init__(self, centros = []):
-        self.lista_receptores: list[Receptores] = [] #listas para almacenar los receptores y donantes (vacias) 
-        self.lista_donantes: list[Donantes] = []
+    def __init__(self, centros = [], donantes = [], receptores = []):
+        self.lista_receptores: list[Receptores] = receptores #listas para almacenar los receptores y donantes (vacias) 
+        self.lista_donantes: list[Donantes] = donantes
         self.centros_salud: list[CentroSalud] = centros
     
     def recibir_Centros_Salud(self, Centro_Salud:list[CentroSalud]): #FUNCION QUE RECIBE TODAS LAS FUNCIONES, APROVECHANDO QUE RECIBE A LOS CENTROS DE SALUD COMO ARGUMENTO
@@ -69,5 +69,3 @@ class INCUCAI:
         else: #caso inverso al de if (logicamente)
             receptor.estado == "Inestable"
             return f"La cirujia ha fallado y el paciente {receptor.nombre} pasa a estado {receptor.estado}. Se le ha puesto la maxima prioridad en la lista de espera."
-
-

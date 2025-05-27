@@ -1,7 +1,6 @@
 import random as rnd
 from pacientes.Receptores import Receptores # Importar la clase Receptores desde el archivo Receptores.py de la carpeta pacientes
 from organos.Organos import Organos # Importar la clase Organos desde el archivo Organos.py de la carpeta organos
-from centro_salud.Centro_Salud import CentroSalud
 from datetime import datetime
 from datetime import timedelta
 
