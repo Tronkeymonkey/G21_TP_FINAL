@@ -12,5 +12,4 @@ class Avion(Vehiculos):
     def despachar(self, distancia, nivel_trafico=None):
         self.dispoinibilidad == "Disponible"
         return self._despacho_default(distancia, nivel_trafico) 
-       
     
