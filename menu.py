@@ -222,16 +222,20 @@ def agregar_donante(incucai: INCUCAI): #chequeado
 
 def menu(incu:INCUCAI):
     
-    print("\n INCUCAI SISTEMA DE TRANSPLANTES") #cambiar si es necesario 
-    print("\n1. Ver lista de receptores")
-    print("\n2. Ver lista de donantes")
-    print("\n3. Ver centros de salud")
-    print("\n4. Agregar nuevo receptor")
-    print("\n5. Agregar nuevo donante")
-    print("\n6. Salir del programa")
+    print(f'''
+-----INCUCAI SISTEMA DE TRANSPLANTES-----
+
+        \n1. Ver lista de receptores
+        \n2. Ver lista de donantes
+        \n3. Ver centros de salud
+        \n4. Agregar nuevo receptor
+        \n5. Agregar nuevo donante
+        \n6. Salir del programa''')
     
-    opcion = input("Elija una opcion: ")
+    
     while True:
+        opcion = input("\nElija una opcion: ")
+
         if opcion == "1":
             listas_receptores(incu)
         elif opcion == "2":
