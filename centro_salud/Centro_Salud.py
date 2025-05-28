@@ -5,8 +5,7 @@ from pacientes.Receptores import Receptores
 from cirujanos.Cirujanos import Cirujanos
 from pacientes.Donantes import Donantes
 from pacientes.Pacientes import Pacientes
-from geopy.geocoders import Nominatim
-from geopy.distance import geodesic
+import random as rnd 
 
 class CentroSalud:
     
@@ -20,18 +19,20 @@ class CentroSalud:
         self.lista_vehiculos: list[Auto | Helicoptero | Avion] = [] #lista de los vehiculos
         self.lista_pacientes: list[Receptores | Donantes] = []
         
+    def asignar_pacientes(self, pacientes: list[Receptores | Donantes]):
         
-#La logica de las funciones es teniendo en cuenta que el centro de salud es del donante
+        self.lista_pacientes.extend(pacientes)
+        for paciente in pacientes:    
+            paciente.centro_de_salud = self
+            paciente.partido = self.partido
+            paciente.provincia = self.provincia
 
+        
+#MODIFICAR EL SELF POR EL DONANTE, ya que siempre entrara a propia ubicacion
     def asignar_y_mandar_vehiculo(self, receptores : Receptores): 
         
-        geolocator = Nominatim(user_agent= "mi_app") #identificar la aplicacion
-
-        if receptores.partido != self.partido: #condicion para llamar al helicoptero
-            loc1 = geolocator.geocode(f"{self.partido}, Argentina") #toma el partido del centro
-            loc2 = geolocator.geocode(f"{receptores.partido}, Argentina") #toma el partido del receptor
-            if loc1 and loc2:
-                distancia = geodesic((loc1.latitude, loc1.longitude), (loc2.latitude, loc2.longitude)).kilometers #calcula la distancia
+        if receptores.partido != self.partido: #condicion para llamar al helicopter
+            distancia = rnd.randint(20,300) #distancia en km
             for i in self.lista_vehiculos:
                 if isinstance(i, Helicoptero): # si pertenece a la clase helicoptero
                     if i.dispoinibilidad == "Disponible":
@@ -39,10 +40,7 @@ class CentroSalud:
                         return i.despachar(distancia)
                 
         elif receptores.provincia != self.provincia: #condicion para llamar al avion
-            loc1 = geolocator.geocode(f"{self.provincia}, Argentina") #toma las provincias de ambos
-            loc2 = geolocator.geocode(f"{receptores.provincia}, Argentina")
-            if loc1 and loc2:
-                distancia = geodesic((loc1.latitude, loc1.longitude), (loc2.latitude, loc2.longitude)).kilometers #calcula la distancia
+            distancia = rnd.randint(300,1700) #distancia en km
             for i in self.lista_vehiculos:
                 if isinstance(i,Avion): #si pertenece  a la clase avion
                     if i.dispoinibilidad == "Disponible":
@@ -50,10 +48,7 @@ class CentroSalud:
                         return i.despachar(distancia)
 
         elif receptores.partido == self.partido and receptores.provincia == self.provincia: #condicion para llamar al terrestre (y mas veloz)
-            loc1 = geolocator.geocode(f"{self.partido}, {self.provincia}, Argentina") 
-            loc2 = geolocator.geocode(f"{receptores.partido}, {receptores.provincia}, Argentina")
-            if loc1 and loc2:
-                distancia = geodesic((loc1.latitude, loc1.longitude), (loc2.latitude, loc2.longitude)).kilometers
+            distancia = rnd.randint(1,20) #distancia en km
             for i in self.lista_vehiculos:
                 if isinstance(i, Auto): 
                     if i.dispoinibilidad == "Disponible":
