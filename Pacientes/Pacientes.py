@@ -8,3 +8,4 @@ class Pacientes:
         self.Tsangre = Tsangre
         self.telefono = telefono
 
+

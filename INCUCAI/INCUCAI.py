@@ -67,3 +67,5 @@ class INCUCAI:
         else: #caso inverso al de if (logicamente)
             receptor.estado == "Inestable"
             return f"La cirujia ha fallado y el paciente {receptor.nombre} pasa a estado {receptor.estado}. Se le ha puesto la maxima prioridad en la lista de espera."
+
+

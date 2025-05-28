@@ -17,3 +17,4 @@ class Receptores(Pacientes):
         self.partido = None
         self.provincia = None
         self.centro_de_salud = None
+        

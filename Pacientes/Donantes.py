@@ -14,3 +14,4 @@ class Donantes(Pacientes):
         self.centro_de_salud = None
 
         
+        

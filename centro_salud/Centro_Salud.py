@@ -64,3 +64,4 @@ class CentroSalud:
                 cirujanos.disponibilidad == "Ocupado"
                 cirujanos.realizar_cirujia(tiempo, receptor.organos_a_disposicion)
             
+            
