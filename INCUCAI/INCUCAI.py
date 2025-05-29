@@ -54,16 +54,18 @@ class INCUCAI:
                     if receptor.organo_a_recibir == donante.organos_a_donar and receptor.Tsangre == donante.Tsangre:
                         for i in range(len(donante.organos_a_donar)): #entro a la lista de organos a donar del donante
                             donante.organos_a_donar[i].fecha_ablacion = datetime.now() #seteamos la fecha de ablacion del organo en "0"
-                            receptor.organos_a_disposicion += [donante.organos_a_donar]  #coloco el organo del donante en la lista de organos a disposicion del receptor
+                            receptor.organos_a_disposicion.append(donante.organos_a_donar)  #coloco el organo del donante en la lista de organos a disposicion del receptor
                             donante.organos_a_donar.remove(donante.organos_a_donar) #el donante no puede donar el organo que ya dono
+                            return donante
 
             elif receptor.estado.lower() == "estable": #misma logica que el anterior, pero para los receptores estables
                 for donante in self.lista_donantes:
                     if receptor.organo_a_recibir == donante.organos_a_donar and receptor.Tsangre == donante.Tsangre:
                         for i in range(len(donante.organos_a_donar)):
                             donante.organos_a_donar[i].fecha_ablacion = datetime.now() 
-                            receptor.organos_a_disposicion += [donante.organos_a_donar]  
+                            receptor.organos_a_disposicion.append(donante.organos_a_donar)
                             donante.organos_a_donar.remove(donante.organos_a_donar) 
+                            return donante
 
     def buscar_compatibilidad_donante_a_receptor(self, donante: Donantes): 
             #verifico si el donante es compatible con el receptor

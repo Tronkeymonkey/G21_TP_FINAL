@@ -35,10 +35,10 @@ class Cirujanos:
         """
         tiempo_tardado = tiempo
         
-        if tiempo_tardado.datetime.total_seconds() > 20*3600: 
+        if tiempo_tardado > 20: 
             print("Cirujia interrupida: TIEMPO DE ABLACION MAYOR A 20 HS") 
         
-        elif tiempo_tardado.datetime.total_seconds() <= 20*3600: 
+        elif tiempo_tardado <= 20: 
             
             if organos in self.tabla_sinergias[self.especialidad]: #si el organo que se quiere trasplantar es compatible con la especialidad del cirujano
                 exito = rnd.randint(0, 10) #simulamos el exito de la cirujia con un random

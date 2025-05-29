@@ -53,27 +53,27 @@ class CentroSalud:
             distancia = rnd.randint(20,300) #distancia en km
             for i in self.lista_vehiculos:
                 if isinstance(i, Helicoptero): # si pertenece a la clase helicoptero
-                    if i.dispoinibilidad == "Disponible":
-                        i.dispoinibilidad == "Ocupado"
+                    if i.disponibilidad == "Disponible":
+                        i.disponibilidad == "Ocupado"
                         return i.despachar(distancia)
                 
         elif receptores.provincia != self.provincia: #condicion para llamar al avion
             distancia = rnd.randint(300,1700) #distancia en km
             for i in self.lista_vehiculos:
                 if isinstance(i,Avion): #si pertenece  a la clase avion
-                    if i.dispoinibilidad == "Disponible":
-                        i.dispoinibilidad == "Ocupado"
+                    if i.disponibilidad == "Disponible":
+                        i.disponibilidad == "Ocupado"
                         return i.despachar(distancia)
 
         elif receptores.partido == self.partido and receptores.provincia == self.provincia: #condicion para llamar al terrestre (y mas veloz)
             distancia = rnd.randint(1,20) #distancia en km
             for i in self.lista_vehiculos:
                 if isinstance(i, Auto): 
-                    if i.dispoinibilidad == "Disponible":
+                    if i.disponibilidad == "Disponible":
                     # Encontrar el auto con mayor velocidad usando max 
-                        if self.lista_vehiculos[i].velocidad_viajes > self.lista_vehiculos[i+1].velocidad_viajes:
+                        if i.velocidad_viajes > (i+1).velocidad_viajes:  #HAY QUE CORREGIR EL I+1
                             max = i
-                    max.dispoinibilidad == "Ocupado"
+                    max.disponibilidad == "Ocupado"
                     return max.despachar(distancia)
                 
     def asignar_cirujano_y_operar(self, receptor: Receptores, tiempo):

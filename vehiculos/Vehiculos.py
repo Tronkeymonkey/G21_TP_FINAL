@@ -12,7 +12,7 @@ class Vehiculos(ABC):
         self.velocidad_viajes = velocidad_viajes
         self.identificador = identificador #El número de patente de una ambulancia. Un nombre de helicóptero ("HELI01", "HELI02") ,Código de un avión de transporte.
         self.registro_viajes = [] #lista donde guardo los datos de cada viaje que hace el vehiculo
-        self.dispoinibilidad = "Disponible"
+        self.disponibilidad = "Disponible"
         
     @abstractmethod    
     def despachar(self, distancia, nivel_trafico=3): #abstract method que se implementa o se sobreescribe por las subclases
