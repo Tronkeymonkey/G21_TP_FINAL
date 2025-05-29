@@ -13,8 +13,16 @@ class Auto(Vehiculos):
         
     @override   
     def despachar(self, distancia): 
-        # VER COMO HACE EL PRFE CON DIVISION X CERO!!
+            """
+            Simula el despacho del vehículo (Auto) a una determinada distancia.
+            Se genera aleatoriamente un nivel de tráfico entre 0 y 3.
+            Se calcula el tiempo de viaje
+            El resultado se guarda en el registro de viajes con la distancia, el tráfico y el tiempo total.
+            Finalmente, devuelve el tiempo total del viaje.
+            """
             nivel_trafico = rnd.randint(0,3)
+            if self.velocidad_viajes == 0:
+                raise ValueError("La velocidad del vehículo no puede ser cero.")  # Manejo preventivo
             tiempo =  (distancia / self.velocidad_viajes) + nivel_trafico 
             self.registro_viajes.append({
                 'distancia': distancia,

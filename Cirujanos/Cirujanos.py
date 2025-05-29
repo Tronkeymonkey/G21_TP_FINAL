@@ -7,6 +7,12 @@ from datetime import timedelta
 class Cirujanos:
    
     def __init__(self, especialidad, disponibilidad=None):
+        """
+        Constructor de la clase Cirujanos.
+        Recibe como argumento la especialidad del cirujano 
+        La disponibilidad se setea por defecto como 'Disponible'. También se inicializa una tabla de sinergias,
+        que define qué especialidades están capacitadas para operar qué órganos.
+        """
         self.especialidad = especialidad.lower() 
         self.disponibilidad = "Disponible"
 
@@ -18,7 +24,15 @@ class Cirujanos:
                                } 
         
     def realizar_cirujia(self, tiempo, organos:Organos = None):
+        """
+        Simula el proceso de una cirujia y determina el exito de esta. El parametro tiempo es la diferencia entre 
+        la hora actual y la hora de ablacion del organo. El parametro organos, es e organo que se desea transplantar.
         
+        Si el organo ha pasado  mas de 20hs desde la ablación, la cirujia se cancela automaticamente. Si el organo es compatible con la especialidad
+        del cirujano, la probabilidad de exito es mayor, pero si no es compatible, la cirujia puede seguir adelante pero con menor probabilidad de exito.
+        La disponibilidad del cirujano se mantiene en "disponible" tras la operacion (ya sea exito o fracaso).
+        Devuelve True si la cirujia fue exitosa. False si la cirujia falló. Y muestra un mensaje si el tiempo de ablacion supera las 20hs. 
+        """
         tiempo_tardado = tiempo
         
         if tiempo_tardado.datetime.total_seconds() > 20*3600: 
