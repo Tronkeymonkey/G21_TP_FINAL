@@ -23,10 +23,10 @@ def validar_fecha(fecha_str, formato="%Y-%m-%d", anios_max=100):
     return None
 
 def obtener_centro_salud(incucai: INCUCAI, nombre_centro: str):
-    for centro in incucai.centros_salud:  # Recorre la lista de centros de INCUCAI
-        if centro.nombre.lower() == nombre_centro.lower():  # Compara sin importar mayúsculas, PORQUEEEE NO ME TOMA EL LOWER()
+    for centro in incucai.centros_salud:
+        if centro.nombre.strip().lower() == nombre_centro.strip().lower():
             return centro
-    return None  # Si no lo encuentra, devuelve None
+    return None
 
 def input_entero(mensaje):
     while True:
@@ -34,10 +34,38 @@ def input_entero(mensaje):
             return int(input(mensaje))
         except ValueError:
             print("Debe ingresar un número válido.")
+
+def dni_donante_ya_existe(incucai: INCUCAI, dni: int) -> bool:
+    return any(d.dni == dni for d in incucai.lista_donantes)           
             
 
-def listas_receptores(incucai: INCUCAI): #ver si hacer un if y crear listas vacias asi puedo ir agregando
-    print("\n---- LISTA RECEPTORES -----")
+def listas_receptores_por_centro(incucai: INCUCAI): #ver si hacer un if y crear listas vacias asi puedo ir agregando
+    print("\n---- LISTA RECEPTORES POR CENTRO DE SALUD -----")
+    if not incucai.centros_salud:
+        print("No hay centros de salud registrados")
+        return
+    
+    listas_centros_salud(incucai)  # va a mostrar todos los centros de salud
+    
+    receptores_filtrados = [r for r in incucai.lista_receptores if r.centro_de_salud.nombre.lower() == centro.nombre.lower()]
+    
+    if not receptores_filtrados:
+        print(f"No hay receptores registrados en el centro de salud: {centro.nombre}")
+    else:
+        for idx, i in enumerate(receptores_filtrados):
+            print(f"{idx}. Nombre: {i.nombre} - Órgano: {i.organo_a_recibir} - Sangre: {i.Tsangre} - Partido: {i.partido} - Provincia: {i.provincia}")
+
+
+
+    
+    nombre_centro = input("\nIngrese el nombre del centro de salud para ver sus receptores: ")
+    centro = obtener_centro_salud(incucai, nombre_centro)
+    
+    if not centro:
+        print("Centro no encontrado. Verifique el nombre.")
+        return
+    
+    
     for idx, i in enumerate(incucai.lista_receptores):
         print(f"{idx}. Nombre: {i.nombre} - Organo a recibir: {i.organo_a_recibir} - Tipo de sangre: {i.Tsangre} - Partido: {i.partido}, Provincia: {i.provincia}") # type: ignore #si hace falta agregar el resto
 
@@ -56,6 +84,21 @@ def listas_centros_salud(incucai: INCUCAI):
       
 def agregar_receptor(incucai: INCUCAI):
     print("\n CARGAR NUEVO RECEPTOR")
+    
+       # Solicitar DNI primero
+    while True:
+        dni_input = input("DNI (8 dígitos): ").strip()
+        if not dni_input.isdigit():
+            print("El DNI debe contener solo números.")
+        elif len(dni_input) != 8:
+            print("El DNI debe tener exactamente 8 dígitos.")
+        else:
+            dni = int(dni_input)
+            if dni_donante_ya_existe(incucai, dni):
+                print( "Ya existe un donante con ese DNI. Cancelando ingreso.")
+                return  # corta la función
+            break  # DNI válido y no repetido
+        
     #bucle nombre
     while True:
         nombre = input("Nombre: ").strip()
@@ -66,17 +109,6 @@ def agregar_receptor(incucai: INCUCAI):
         else:
             break
         
-    #bucle dni   
-    while True:
-        dni_input = input("DNI (Ingrese solo 8 digitos por favor): ").strip()
-        if not dni_input.isdigit():
-            print("ERROR. El DNI debe contener solo números.")
-        elif len(dni_input) != 8:
-            print("ERROR. El DNI debe tener exactamente 8 dígitos.")
-        else:
-            dni = int(dni_input)
-        break
-    
     #bucle sexo
     sexo = input("Sexo: M para masculino, F para femenino: ")
     while sexo.upper() not in ("M", "F"):
@@ -85,7 +117,8 @@ def agregar_receptor(incucai: INCUCAI):
     sexo = sexo.upper()
     
     #bucle nacimiento
-    # Inicializo nacimiento en none, no hay una fecha valida todavia
+    #Inicializo nacimiento en none, no hay una fecha valida todavia
+    #que la edad sea mayor o igual a tal edad para perfeccionarlo
     nacimiento = None
     while not nacimiento: #se ejecuta el bucle mientras la variable nacimiento siga siendo none, mientras que no tengamos una fecha valida
         nacimiento_input = input("Fecha de nacimiento (YYYY-MM-DD): ") #Ingresa el usuario una fecha en el formato adecuado
@@ -128,26 +161,6 @@ def agregar_receptor(incucai: INCUCAI):
     
     prioridad = input_entero("Prioridad (1 = alta, 2 = media, 3 = baja: ") #chequear???
     
-    #bucle partido
-    partido = input("Partido: ").strip()
-    while True:
-        if not partido:
-            print("El partido no puede estar vacío. Ingrese nuevamente un partido:")
-        elif any(char.isdigit() for char in partido):
-            print("El partido no puede contener números. Ingrese nuevamente un partido:")
-        else:
-            break
-        
-    #bucle provincia
-    provincia = input("Provincia: ").strip()
-    while True:
-        if not provincia:
-            print("La provincia no puede estar vacía. Ingrese nuevamente una provincia:")
-        elif any(char.isdigit() for char in provincia):
-            print("La provincia no puede contener números. Ingrese nuevamente una provincia:")
-        else:
-            break
-    provincia = provincia.title() #para que quede por ejemplo con Buenos Aires
     
     nuevo = Receptores(nombre, dni, sexo, nacimiento, grupo_sanguineo, telefono, centro_de_salud, organo_a_recibir, fecha_en_espera, prioridad, partido, provincia)
     incucai.lista_receptores.append(nuevo)
@@ -157,7 +170,7 @@ def agregar_receptor(incucai: INCUCAI):
     
 def agregar_donante(incucai: INCUCAI): #chequeado 
     print("\nCARGAR NUEVO DONANTE:")
-    
+
     #bucle nombre
     nombre = input("Nombre: ").strip()
     while True:
@@ -218,6 +231,19 @@ def agregar_donante(incucai: INCUCAI): #chequeado
     nuevo_donante = Donantes(nombre, dni, sexo, fecha_nacimiento, grupo_sanguineo, centro_salud, fecha_hora_ablacion)
     incucai.lista_donantes.append(nuevo_donante)
     print("Donante agregado correctamente.")
+    
+def consultar_resultado_trasplante(centros_salud: CentroSalud):
+    dni_buscado = int(input("Ingrese el DNI del paciente: "))
+    for centro in centros_salud:
+        for paciente in centro.pacientes_exitosos:
+            if paciente.DNI == dni_buscado:
+                print("El trasplante fue exitoso.")
+                return
+        for paciente in centro.pacientes_fallidos:
+            if paciente.DNI == dni_buscado:
+                print("El trasplante falló.")
+                return
+    print("No se encontró un trasplante asociado a ese DNI.")
                 
 
 def menu(incu:INCUCAI):
@@ -230,14 +256,15 @@ def menu(incu:INCUCAI):
         \n3. Ver centros de salud
         \n4. Agregar nuevo receptor
         \n5. Agregar nuevo donante
-        \n6. Salir del programa''')
+        \n6. Resultado transplante
+        \n7. Salir del programa''')
     
     
     while True:
         opcion = input("\nElija una opcion: ")
 
         if opcion == "1":
-            listas_receptores(incu)
+            listas_receptores_por_centro(incu)
         elif opcion == "2":
             listas_donantes(incu)    
         elif opcion == "3":
@@ -247,7 +274,9 @@ def menu(incu:INCUCAI):
         elif opcion == "5":
             agregar_donante(incu)
         elif opcion == "6":
-            print("Saliendo del sistema...")
+            consultar_resultado_trasplante(incu.centros_salud)
+        elif opcion == "7":
+            print("Saliendo del sistema...")  
             break
         else:
             print("Opción no válida. Elegí nuevamente.")       
