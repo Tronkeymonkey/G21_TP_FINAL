@@ -36,7 +36,11 @@ def input_entero(mensaje):
             print("Debe ingresar un número válido.")
 
 def dni_donante_ya_existe(incucai: INCUCAI, dni: int) -> bool:
-    return any(d.dni == dni for d in incucai.lista_donantes)           
+    return any(d.dni == dni for d in incucai.lista_donantes) 
+
+def calcular_edad(nacimiento: datetime.datetime) -> int:
+    hoy = datetime.datetime.now()
+    return hoy.year - nacimiento.year - ((hoy.month, hoy.day) < (nacimiento.month, nacimiento.day))          
             
 
 def listas_receptores_por_centro(incucai: INCUCAI): #ver si hacer un if y crear listas vacias asi puedo ir agregando
@@ -65,10 +69,16 @@ def listas_receptores_por_centro(incucai: INCUCAI): #ver si hacer un if y crear 
         print("Centro no encontrado. Verifique el nombre.")
         return
     
-    
-    for idx, i in enumerate(incucai.lista_receptores):
-        print(f"{idx}. Nombre: {i.nombre} - Organo a recibir: {i.organo_a_recibir} - Tipo de sangre: {i.Tsangre} - Partido: {i.partido}, Provincia: {i.provincia}") # type: ignore #si hace falta agregar el resto
+    # Ordena por prioridad y luego por edad( depende si es 1, 2, 3)
+    receptores_ordenados = sorted(
+        receptores_filtrados,
+        key=lambda r: (r.prioridad, calcular_edad(r.nacimiento))
+    )
 
+    print(f"\nReceptores en {centro.nombre} (ordenados por prioridad y edad):")
+    for idx, i in enumerate(receptores_ordenados, start=1):
+        print(f"{idx}. Nombre: {i.nombre} - Órgano: {i.organo_a_recibir} - Sangre: {i.Tsangre} - Prioridad: {i.prioridad} - Edad: {calcular_edad(i.nacimiento)} - Partido: {i.partido} - Provincia: {i.provincia}")
+        
 def listas_donantes(incucai:INCUCAI):
     print("\n----- LISTA DONANTES ----")
     for idx, i in enumerate(incucai.lista_donantes):
@@ -79,8 +89,6 @@ def listas_centros_salud(incucai: INCUCAI):
     for i in incucai.centros_salud:
         print(f" Nombre: {i.nombre} - Partido: {i.partido} - Provincia: {i.provincia} - Tel: {i.telefono} ") 
 
-# IMPORTANTE: CUANDO AGREGO RECEPTOR Y DONANTE TENGO QUE FIJAFRME COMO LO AGREGO A MIS LISTAS DE RECEPTORES Y DONANTES, chequear el menu bien.
-#cuando les pido que ingresen fechas deberia haceer un if donde me figure que sea una fecha valida desde 2025 dia en el que estamos hasta xej 70 años atras(?
       
 def agregar_receptor(incucai: INCUCAI):
     print("\n CARGAR NUEVO RECEPTOR")
